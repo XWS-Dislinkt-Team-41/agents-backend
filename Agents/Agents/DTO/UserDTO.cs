@@ -1,9 +1,11 @@
 ﻿using System.Text.Json.Serialization;
+using Agents.Model;
 
-namespace Agents.Model
+namespace Agents.DTO
 {
-    public class User
+    public class UserDTO
     {
+
         public int Id { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }

@@ -1,9 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "jambGV5ecImwqrFeWyhykJHQd1NHkAnTYiNG3ChfPrmtATvkqEyivCOr7xc2gEmvmCeNmieC3oR5afbG4UMN5g==",
+  "dgSpecHash": "5UF5+8E6NE8vs+AGaeI5NkCmPVxlY9Mudow0cdJFxgV9sAm3Al6d9bC+Eq/lEY8xRr1yWmB+Tx6iYJPpOEUVIw==",
   "success": true,
   "projectFilePath": "C:\\Users\\papov\\Desktop\\agents-backend\\Agents\\Agents\\Agents.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\papov\\.nuget\\packages\\automapper\\11.0.1\\automapper.11.0.1.nupkg.sha512",
+    "C:\\Users\\papov\\.nuget\\packages\\bcrypt.net-next\\4.0.3\\bcrypt.net-next.4.0.3.nupkg.sha512",
     "C:\\Users\\papov\\.nuget\\packages\\castle.core\\4.4.0\\castle.core.4.4.0.nupkg.sha512",
     "C:\\Users\\papov\\.nuget\\packages\\microsoft.bcl.asyncinterfaces\\6.0.0\\microsoft.bcl.asyncinterfaces.6.0.0.nupkg.sha512",
     "C:\\Users\\papov\\.nuget\\packages\\microsoft.bcl.hashcode\\1.1.1\\microsoft.bcl.hashcode.1.1.1.nupkg.sha512",
