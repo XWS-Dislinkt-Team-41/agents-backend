@@ -12,7 +12,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using Agents.Authorization;
 using Agents.Model;
+using Agents.Repository;
 using Agents.Service;
+using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using Npgsql.EntityFrameworkCore.PostgreSQL;
 using Microsoft.EntityFrameworkCore.Proxies;
@@ -32,6 +34,9 @@ namespace Agents
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+
+            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+
             services.AddControllers();
 
             services.AddCors(o => o.AddPolicy("CorsPolicy", builder =>
@@ -42,6 +47,7 @@ namespace Agents
                     .AllowAnyHeader();
                 //.AllowCredentials();
             }));
+            
 
             services.AddDbContext<AgentDbContext>(options =>
             {
@@ -50,8 +56,12 @@ namespace Agents
                 //assembly => assembly.MigrationsAssembly(typeof(HospitalDbContext).Assembly.FullName));
             });
 
+
+
+
             services.AddScoped<IJwtUtils, JwtUtils>();
             services.AddScoped<IUserService, UserService>();
+            services.AddTransient<IUserRepository, UserRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

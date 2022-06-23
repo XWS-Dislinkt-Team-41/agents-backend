@@ -1,16 +1,11 @@
-﻿using System;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Text.Json.Serialization;
+﻿using System.Text.Json.Serialization;
+using Agents.Model;
 
-
-namespace Agents.Model
+namespace Agents.DTO
 {
-    [Serializable]
-    public class User
+    public class UserDTO
     {
-        [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+
         public int Id { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }

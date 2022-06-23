@@ -1,57 +1,89 @@
-﻿using System.Collections.Generic;
-using Agents.Authorization;
+﻿using Agents.Authorization;
 using Agents.DTO;
+using Agents.Exception;
 using Agents.Model;
-using Microsoft.Extensions.Options;
+using Agents.Repository;
+using AutoMapper;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Agents.Service
 {
     public class UserService : IUserService
     {
 
-        private AgentDbContext _context;
+        private IUserRepository _userRepository;
         private IJwtUtils _jwtUtils;
-        //private readonly AppSettings _appSettings;
+        private IMapper _mapper;
+
         public UserService(
-            AgentDbContext context,
-            IJwtUtils jwtUtils
-            //,IOptions<AppSettings> appSettings
-            )
+            IUserRepository userRepository,
+            IJwtUtils jwtUtils,
+            IMapper mapper
+        )
         {
-            _context = context;
+            _userRepository = userRepository;
             _jwtUtils = jwtUtils;
-            //_appSettings = appSettings.Value;
+            _mapper = mapper;
+
         }
 
 
         public AuthenticateResponseDTO Authenticate(AuthenticateRequestDTO model)
         {
-            //var user = _context.Users.SingleOrDefault(x => x.Username == model.Username);
-            
+            var user = _userRepository.GetByUsername(model.Username);
+
 
             // validate
-            //if (user == null || !BCrypt.Verify(model.Password, user.PasswordHash))
-            //    throw new AppException("Username or password is incorrect");
+            if (user == null || !BCrypt.Net.BCrypt.Verify(model.Password, user.PasswordHash))
+                throw new AppException("Username or password is incorrect");
 
             // authentication successful so generate jwt token
-            //var jwtToken = _jwtUtils.GenerateJwtToken(user);
+            var jwtToken = _jwtUtils.GenerateJwtToken(user);
 
-            //return new AuthenticateResponseDTO(user, jwtToken);
-            return null;
+            return new AuthenticateResponseDTO(user, jwtToken);
         }
 
-        public IEnumerable<User> GetAll()
+        public List<User> GetAll()
         {
-            //return _context.User;
-            return null;
+            return _userRepository.GetAll();
+        }
+
+        public List<User> GetAllUserRequests()
+        {
+            return _userRepository.GetAllUnconfirmed();
         }
 
         public User GetById(int id)
         {
-            //var user = _context.Users.Find(id);
-            //if (user == null) throw new KeyNotFoundException("User not found");
-            //return user;
-            return null;
+            var user = _userRepository.Get(id);
+            if (user == null) throw new KeyNotFoundException("User not found");
+            return user;
+        }
+
+        public UserDTO Register(UserDTO userDTO)
+        {
+            // validate
+            if (_userRepository.GetByUsername(userDTO.Username) != null)
+                throw new AppException("Username '" + userDTO.Username + "' is already taken");
+
+            // map model to new user object
+            var user = _mapper.Map<UserDTO, User>(userDTO);
+            if (user.Role == Role.Admin)
+            {
+                user.Confirmed = true;
+            }
+            else
+            {
+                user.Confirmed = false;
+            }
+
+            // hash password
+            user.PasswordHash = BCrypt.Net.BCrypt.HashPassword(userDTO.PasswordHash);
+
+            // save user
+            _userRepository.Insert(user);
+            return userDTO;
         }
     }
 }
