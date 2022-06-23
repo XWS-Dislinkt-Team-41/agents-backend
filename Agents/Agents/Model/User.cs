@@ -1,9 +1,16 @@
-﻿using System.Text.Json.Serialization;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
+
 
 namespace Agents.Model
 {
+    [Serializable]
     public class User
     {
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
@@ -12,7 +19,7 @@ namespace Agents.Model
 
         public bool Confirmed { get; set; }
 
-        [JsonIgnore]
+        //[JsonIgnore]
         public string PasswordHash { get; set; }
     }
 }

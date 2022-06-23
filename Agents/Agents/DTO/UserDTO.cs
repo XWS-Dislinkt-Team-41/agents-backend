@@ -14,7 +14,7 @@ namespace Agents.DTO
 
         public bool Confirmed { get; set; }
 
-        [JsonIgnore]
+        //[JsonIgnore]
         public string PasswordHash { get; set; }
     }
 }

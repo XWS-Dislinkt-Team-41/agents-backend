@@ -63,3 +63,8 @@ C:\Users\papov\Desktop\agents-backend\Agents\Agents\bin\Debug\netcoreapp3.1\runt
 C:\Users\papov\Desktop\agents-backend\Agents\Agents\bin\Debug\netcoreapp3.1\runtimes\unix\lib\netcoreapp2.0\System.Runtime.Caching.dll
 C:\Users\papov\Desktop\agents-backend\Agents\Agents\bin\Debug\netcoreapp3.1\runtimes\win\lib\netcoreapp2.0\System.Runtime.Caching.dll
 C:\Users\papov\Desktop\agents-backend\Agents\Agents\bin\Debug\netcoreapp3.1\runtimes\win\lib\netstandard2.0\System.Security.Cryptography.ProtectedData.dll
+C:\Users\papov\Desktop\agents-backend\Agents\Agents\bin\Debug\netcoreapp3.1\AutoMapper.dll
+C:\Users\papov\Desktop\agents-backend\Agents\Agents\bin\Debug\netcoreapp3.1\BCrypt.Net-Next.dll
+C:\Users\papov\Desktop\agents-backend\Agents\Agents\bin\Debug\netcoreapp3.1\AutoMapper.Extensions.Microsoft.DependencyInjection.dll
+C:\Users\papov\Desktop\agents-backend\Agents\Agents\bin\Debug\netcoreapp3.1\Microsoft.EntityFrameworkCore.Relational.Design.dll
+C:\Users\papov\Desktop\agents-backend\Agents\Agents\bin\Debug\netcoreapp3.1\Npgsql.EntityFrameworkCore.PostgreSQL.Design.dll

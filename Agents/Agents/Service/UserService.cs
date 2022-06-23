@@ -1,37 +1,37 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using Agents.Authorization;
+﻿using Agents.Authorization;
 using Agents.DTO;
 using Agents.Exception;
 using Agents.Model;
+using Agents.Repository;
 using AutoMapper;
-using Microsoft.Extensions.Options;
-using BCrypt.Net;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Agents.Service
 {
     public class UserService : IUserService
     {
 
-        private AgentDbContext _context;
+        private IUserRepository _userRepository;
         private IJwtUtils _jwtUtils;
         private IMapper _mapper;
+
         public UserService(
-            AgentDbContext context,
+            IUserRepository userRepository,
             IJwtUtils jwtUtils,
             IMapper mapper
         )
         {
-            _context = context;
+            _userRepository = userRepository;
             _jwtUtils = jwtUtils;
             _mapper = mapper;
-    
+
         }
 
 
         public AuthenticateResponseDTO Authenticate(AuthenticateRequestDTO model)
         {
-            var user = _context.Users.SingleOrDefault(x => x.Username == model.Username);
+            var user = _userRepository.GetByUsername(model.Username);
 
 
             // validate
@@ -44,26 +44,31 @@ namespace Agents.Service
             return new AuthenticateResponseDTO(user, jwtToken);
         }
 
-        public IEnumerable<User> GetAll()
+        public List<User> GetAll()
         {
-            return _context.Users;
+            return _userRepository.GetAll();
+        }
+
+        public List<User> GetAllUserRequests()
+        {
+            return _userRepository.GetAllUnconfirmed();
         }
 
         public User GetById(int id)
         {
-            var user = _context.Users.Find(id);
+            var user = _userRepository.Get(id);
             if (user == null) throw new KeyNotFoundException("User not found");
             return user;
         }
 
-        public void Register(UserDTO userDTO)
+        public UserDTO Register(UserDTO userDTO)
         {
             // validate
-            if (_context.Users.Any(x => x.Username == userDTO.Username))
+            if (_userRepository.GetByUsername(userDTO.Username) != null)
                 throw new AppException("Username '" + userDTO.Username + "' is already taken");
 
             // map model to new user object
-            var user = _mapper.Map<User>(userDTO);
+            var user = _mapper.Map<UserDTO, User>(userDTO);
             if (user.Role == Role.Admin)
             {
                 user.Confirmed = true;
@@ -77,9 +82,8 @@ namespace Agents.Service
             user.PasswordHash = BCrypt.Net.BCrypt.HashPassword(userDTO.PasswordHash);
 
             // save user
-            _context.Users.Add(user);
-            _context.SaveChanges();
+            _userRepository.Insert(user);
+            return userDTO;
         }
-
     }
 }
