@@ -1,4 +1,6 @@
-﻿using Agents.Model;
+﻿using System.Collections.Generic;
+using System.Linq;
+using Agents.Model;
 
 namespace Agents.Repository
 {
@@ -9,6 +11,11 @@ namespace Agents.Repository
         public CompanyRegistrationRequestRepository(AgentDbContext dbContext) : base(dbContext)
         {
             _dbContext = dbContext;
+        }
+
+        public List<CompanyRegistrationRequest> GetAllUnansweredRequests()
+        {
+            return _dbContext.CompanyRegistrationRequests.Where(r => r.Status == RequestStatus.Waiting).ToList();
         }
     }
 }
