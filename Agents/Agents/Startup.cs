@@ -1,23 +1,14 @@
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Agents.Authorization;
 using Agents.Model;
 using Agents.Repository;
 using Agents.Service;
-using AutoMapper;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
-using Npgsql.EntityFrameworkCore.PostgreSQL;
-using Microsoft.EntityFrameworkCore.Proxies;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 
 
 namespace Agents
@@ -34,7 +25,6 @@ namespace Agents
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
             services.AddControllers();
@@ -47,7 +37,6 @@ namespace Agents
                     .AllowAnyHeader();
                 //.AllowCredentials();
             }));
-            
 
             services.AddDbContext<AgentDbContext>(options =>
             {
@@ -56,12 +45,11 @@ namespace Agents
                 //assembly => assembly.MigrationsAssembly(typeof(HospitalDbContext).Assembly.FullName));
             });
 
-
-
-
             services.AddScoped<IJwtUtils, JwtUtils>();
             services.AddScoped<IUserService, UserService>();
             services.AddTransient<IUserRepository, UserRepository>();
+            services.AddScoped<ICompanyRegistrationRequestService, CompanyRegistrationRequestService>();
+            services.AddScoped<ICompanyRegistrationRequestRepository, CompanyRegistrationRequestRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

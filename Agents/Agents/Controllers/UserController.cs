@@ -1,11 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using Agents.Authorization;
 using Agents.DTO;
 using Agents.Model;
 using Agents.Service;
-using Microsoft.AspNetCore.Http;
+using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Agents.Controllers
@@ -14,11 +12,13 @@ namespace Agents.Controllers
     [Route("[controller]")]
     public class UserController : ControllerBase
     {
-        private IUserService _userService;
+        private readonly IUserService _userService;
+        private readonly IMapper _mapper;
 
-        public UserController(IUserService userService)
+        public UserController(IUserService userService, IMapper mapper)
         {
             _userService = userService;
+            _mapper = mapper;
         }
 
         [AllowAnonymous]
@@ -40,7 +40,7 @@ namespace Agents.Controllers
         [HttpPost]
         public UserDTO Register(UserDTO userDTO)
         {
-            return _userService.Register(userDTO);
+            return _mapper.Map<UserDTO>(_userService.Register(userDTO));
         }
 
 

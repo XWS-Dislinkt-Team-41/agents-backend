@@ -2,8 +2,6 @@
 using System.Threading.Tasks;
 using Agents.Service;
 using Microsoft.AspNetCore.Http;
-using Microsoft.Extensions.Options;
-using Microsoft.Extensions.Options;
 
 namespace Agents.Authorization
 {

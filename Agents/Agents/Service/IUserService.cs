@@ -6,8 +6,7 @@ namespace Agents.Service
 {
     public interface IUserService
     {
-        public UserDTO Register(UserDTO userDTO);
-
+        public User Register(UserDTO userDTO);
         AuthenticateResponseDTO Authenticate(AuthenticateRequestDTO model);
         List<User> GetAll();
         User GetById(int id);

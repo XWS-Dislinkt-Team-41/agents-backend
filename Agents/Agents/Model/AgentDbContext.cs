@@ -1,13 +1,12 @@
-﻿using Agents.Model;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
+﻿using Microsoft.EntityFrameworkCore;
 
 namespace Agents.Model
 {
-    public class AgentDbContext
-        : DbContext
+    public class AgentDbContext : DbContext
     {
         public DbSet<User> Users { get; set; }
+        public DbSet<CompanyRegistrationRequest> CompanyRegistrationRequests { get; set; }
+
         public AgentDbContext(DbContextOptions<AgentDbContext> options) : base(options)
         {
         }

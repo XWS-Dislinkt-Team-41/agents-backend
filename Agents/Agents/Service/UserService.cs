@@ -1,11 +1,10 @@
-﻿using Agents.Authorization;
+﻿using System.Collections.Generic;
+using Agents.Authorization;
 using Agents.DTO;
 using Agents.Exception;
 using Agents.Model;
 using Agents.Repository;
 using AutoMapper;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace Agents.Service
 {
@@ -27,7 +26,6 @@ namespace Agents.Service
             _mapper = mapper;
 
         }
-
 
         public AuthenticateResponseDTO Authenticate(AuthenticateRequestDTO model)
         {
@@ -61,7 +59,7 @@ namespace Agents.Service
             return user;
         }
 
-        public UserDTO Register(UserDTO userDTO)
+        public User Register(UserDTO userDTO)
         {
             // validate
             if (_userRepository.GetByUsername(userDTO.Username) != null)
@@ -82,8 +80,7 @@ namespace Agents.Service
             user.PasswordHash = BCrypt.Net.BCrypt.HashPassword(userDTO.PasswordHash);
 
             // save user
-            _userRepository.Insert(user);
-            return userDTO;
+            return _userRepository.Insert(user);
         }
     }
 }
