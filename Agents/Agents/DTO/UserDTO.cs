@@ -1,9 +1,9 @@
-﻿using System.Text.Json.Serialization;
-using Agents.Model;
+﻿using Agents.Model;
+using System.Text.Json.Serialization;
 
 namespace Agents.DTO
 {
-    public class UserDTO: Entity
+    public class UserDTO : Entity
     {
 
         public long Id { get; set; }

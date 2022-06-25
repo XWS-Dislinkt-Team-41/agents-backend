@@ -14,6 +14,7 @@ namespace Agents.Model
 
         public List<int> Reviewers { get; protected set; }
 
+        public JobPositionPayment(){}
         public JobPositionPayment(Payment payment)
         {
             Reviewers.Add(payment.UserId);

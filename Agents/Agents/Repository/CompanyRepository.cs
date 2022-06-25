@@ -5,41 +5,13 @@ using Agents.Model;
 
 namespace Agents.Repository
 {
-    public class CompanyRepository : ICompanyRepository
+    public class CompanyRepository : GenericRepository<Company> ,ICompanyRepository
     {
-        public List<Company> GetAll()
-        {
-            throw new NotImplementedException();
-        }
+        private readonly AgentDbContext _dbContext;
 
-        public IEnumerable<Company> Search(Expression<Func<Company, bool>> predicate)
+        public CompanyRepository(AgentDbContext dbContext) : base(dbContext)
         {
-            throw new NotImplementedException();
-        }
-
-        public Company Get(int id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void Insert(Company entity)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Company Update(Company entity)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void Delete(Company entity)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void Save(Company entity)
-        {
-            throw new NotImplementedException();
+            _dbContext = dbContext;
         }
     }
 }

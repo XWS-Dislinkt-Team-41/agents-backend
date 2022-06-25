@@ -4,10 +4,12 @@ namespace Agents.Model
 {
     public class Company: Entity
     {
-        public List<Comment> Comments { get; set; }
 
-        public List<Interview> Interviews { get; set; }
+        public Company(){}
+        public virtual List<Comment> Comments { get; set; }
 
-        public List<JobPositionPayment> JobPositionsPayments { get; set; }
+        public virtual List<Interview> Interviews { get; set; }
+
+        public virtual List<JobPositionPayment> JobPositionsPayments { get; set; }
     }
 }

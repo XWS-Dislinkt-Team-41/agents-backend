@@ -17,7 +17,7 @@ namespace Agents.Service
             Comment comment = _mapper.Map<Comment>(commentDTO);
             Company company = _companyRepository.Get(comment.ReviewedCompanyId);
             company.Comments.Add(comment);
-            _companyRepository.Save(company);
+            _companyRepository.Update(company);
             return _mapper.Map < CompanyDTO>(company);
         }
 
@@ -26,7 +26,7 @@ namespace Agents.Service
             Interview interview = _mapper.Map<Interview>(interviewDTO);
             Company company = _companyRepository.Get(interview.InterviewedCompanyId);
             company.Interviews.Add(interview);
-            _companyRepository.Save(company);
+            _companyRepository.Update(company);
             return _mapper.Map<CompanyDTO>(company);
         }
 
@@ -40,7 +40,7 @@ namespace Agents.Service
             JobPositionPayment newJobPositionPayment = new JobPositionPayment(_mapper.Map<Payment>(paymentDTO));
             company.JobPositionsPayments.Remove(oldPositionPayment);
             company.JobPositionsPayments.Add(newJobPositionPayment);
-            _companyRepository.Save(company);
+            _companyRepository.Update(company);
             return _mapper.Map<CompanyDTO>(company);
         }
     }
