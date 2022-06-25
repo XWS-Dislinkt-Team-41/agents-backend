@@ -9,6 +9,9 @@ namespace Agents.Mapper
         public MapperProfile()
         {
             CreateMap<UserDTO, User>().ReverseMap();
+            CreateMap<CompanyDTO, Company>().ReverseMap();
+            CreateMap<CommentDTO, Comment>().ReverseMap();
+            CreateMap<PaymentDTO, Payment>().ReverseMap();
         }
     }
 }

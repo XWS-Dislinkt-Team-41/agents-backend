@@ -52,11 +52,6 @@ namespace Agents.Repository
             throw new NotImplementedException();
         }
 
-        public User UpdateMedicine(User entity)
-        {
-            throw new NotImplementedException();
-        }
-
         public void Delete(User entity)
         {
             throw new NotImplementedException();

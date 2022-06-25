@@ -12,7 +12,6 @@ namespace Agents.Repository
         T Get(int id);
         void Insert(T entity);
         T Update(T entity);
-        T UpdateMedicine(T entity);
         void Delete(T entity);
         void Save(T entity);
     }

@@ -3,10 +3,8 @@ using Agents.Model;
 
 namespace Agents.DTO
 {
-    public class UserDTO
+    public class UserDTO: Entity
     {
-
-        public int Id { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string Username { get; set; }
@@ -14,7 +12,7 @@ namespace Agents.DTO
 
         public bool Confirmed { get; set; }
 
-        //[JsonIgnore]
+        [JsonIgnore]
         public string PasswordHash { get; set; }
     }
 }

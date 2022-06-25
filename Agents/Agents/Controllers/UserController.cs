@@ -43,6 +43,14 @@ namespace Agents.Controllers
             return _userService.Register(userDTO);
         }
 
+        [AllowAnonymous]
+        [HttpPost]
+        [Route("login")]
+        public AuthenticateResponseDTO Login(AuthenticateRequestDTO authDTO)
+        {
+            return _userService.Authenticate(authDTO);
+        }
+
 
     }
 }
