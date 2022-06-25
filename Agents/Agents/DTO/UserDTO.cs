@@ -3,7 +3,7 @@ using Agents.Model;
 
 namespace Agents.DTO
 {
-    public class UserDTO
+    public class UserDTO: Entity
     {
 
         public long Id { get; set; }
@@ -14,7 +14,7 @@ namespace Agents.DTO
 
         public bool Confirmed { get; set; }
 
-        //[JsonIgnore]
+        [JsonIgnore]
         public string PasswordHash { get; set; }
     }
 }

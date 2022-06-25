@@ -2,8 +2,7 @@
 
 namespace Agents.Model
 {
-    [Serializable]
-    public class User : Entity
+    public class User:Entity
     {
         public string FirstName { get; set; }
         public string LastName { get; set; }
@@ -12,7 +11,7 @@ namespace Agents.Model
 
         public bool Confirmed { get; set; }
 
-        //[JsonIgnore]
+        [JsonIgnore]
         public string PasswordHash { get; set; }
 
     }

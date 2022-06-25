@@ -23,5 +23,26 @@ namespace Agents.Repository
         {
             return _dbContext.Users.SingleOrDefault(x => x.Username.Equals(username));
         }
+
+        public void Insert(User entity)
+        {
+            _dbContext.Users.Add(entity);
+            _dbContext.SaveChanges();
+        }
+
+        public User Update(User entity)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Delete(User entity)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Save(User entity)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

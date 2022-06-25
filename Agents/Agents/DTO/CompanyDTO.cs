@@ -1,9 +1,11 @@
 ﻿using System.Collections.Generic;
+using Agents.Model;
 
-namespace Agents.Model
+namespace Agents.DTO
 {
-    public class Company: Entity
+    public class CompanyDTO:Entity
     {
+
         public List<Comment> Comments { get; set; }
 
         public List<Interview> Interviews { get; set; }
