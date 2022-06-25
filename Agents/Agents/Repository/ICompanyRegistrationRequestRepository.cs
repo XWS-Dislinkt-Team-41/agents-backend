@@ -1,5 +1,4 @@
 ﻿using Agents.Model;
-using Agents.Repository;
 
 namespace Agents.Repository
 {

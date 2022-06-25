@@ -40,9 +40,9 @@ namespace Agents.Repository
             return updatedEntity.Entity;
         }
 
-        public void Delete(T entity)
+        public void Delete(long id)
         {
-            T existing = _table.Find(entity.Id);
+            T existing = _table.Find(id);
             _table.Remove(existing);
         }
 

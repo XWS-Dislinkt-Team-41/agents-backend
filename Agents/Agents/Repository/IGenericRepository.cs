@@ -8,7 +8,7 @@ namespace Agents.Repository
         T Get(long id);
         T Insert(T entity);
         T Update(T entity);
-        void Delete(T entity);
+        void Delete(long id);
         void Save();
     }
 }

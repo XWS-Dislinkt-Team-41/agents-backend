@@ -50,6 +50,9 @@ namespace Agents
             services.AddTransient<IUserRepository, UserRepository>();
             services.AddScoped<ICompanyRegistrationRequestService, CompanyRegistrationRequestService>();
             services.AddScoped<ICompanyRegistrationRequestRepository, CompanyRegistrationRequestRepository>();
+            services.AddScoped<ISkillRepository, SkillRepository>();
+            services.AddScoped<IJobOfferRepository, JobOfferRepository>();
+            services.AddScoped<IJobOfferService, JobOfferService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
