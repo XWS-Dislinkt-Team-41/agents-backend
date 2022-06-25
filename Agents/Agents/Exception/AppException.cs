@@ -5,7 +5,9 @@ namespace Agents.Exception
 {
     public class AppException : System.Exception
     {
-        public AppException() : base() { }
+        public AppException()
+        {
+        }
 
         public AppException(string message) : base(message) { }
 

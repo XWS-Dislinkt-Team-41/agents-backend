@@ -1,6 +1,5 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using Agents.Model;
-using Agents.Repository;
 
 namespace Agents.Repository
 {
