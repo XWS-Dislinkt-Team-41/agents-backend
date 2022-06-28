@@ -15,6 +15,11 @@ namespace Agents.Service
             _requestRepository = requestRepository;
             _userRepository = userRepository;
         }
+        public CompanyRegistrationRequest Create(CompanyRegistrationRequestDTO requestDto)
+        {
+            CompanyRegistrationRequest companyRegistrationRequest = new CompanyRegistrationRequest(requestDto.UserId, requestDto.ContactInformation, requestDto.ActivityDescription);
+            return _requestRepository.Insert(companyRegistrationRequest);
+        }
 
         public List<CompanyRegistrationRequest> GetAllUnansweredRequests()
         {

@@ -7,7 +7,7 @@ namespace Agents.DTO
         public long Id { get; set; }
         public RequestStatus Status { get; set; }
         public long UserId { get; set; }
-        public long CompanyId { get; set; }
-        public Company Company { get; set; }
+        public string ContactInformation { get; set; }
+        public string ActivityDescription { get; set; }
     }
 }

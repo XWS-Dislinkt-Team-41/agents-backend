@@ -4,8 +4,16 @@
     {
         public RequestStatus Status { get; private set; }
         public long UserId { get; private set; }
-        public long CompanyId { get; private set; }
-        public virtual Company Company { get; private set; }
+        public string ContactInformation { get; private set; }
+        public string ActivityDescription { get; private set; }
+
+        public CompanyRegistrationRequest(long userId, string contactInformation, string activityDescription)
+        {
+            Status = RequestStatus.Waiting;
+            UserId = userId;
+            ContactInformation = contactInformation;
+            ActivityDescription = activityDescription;
+        }
 
         public bool Accept()
         {

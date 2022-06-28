@@ -9,5 +9,6 @@ namespace Agents.Service
         public List<CompanyRegistrationRequest> GetAllUnansweredRequests();
         public void Accept(CompanyRegistrationRequestDTO registrationRequestDTO);
         public void Decline(CompanyRegistrationRequestDTO registrationRequestDTO);
+        CompanyRegistrationRequest Create(CompanyRegistrationRequestDTO requestDto);
     }
 }

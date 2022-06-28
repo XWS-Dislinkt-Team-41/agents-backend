@@ -22,6 +22,14 @@ namespace Agents.Controllers
             _mapper = mapper;
         }
 
+        [Authorize(Role.User)]
+        [HttpPost]
+        public ActionResult<CompanyRegistrationRequestDTO> CreateRequest(CompanyRegistrationRequestDTO requestDto)
+        {
+            var result = _requestService.Create(requestDto);
+            return Ok(_mapper.Map<CompanyRegistrationRequestDTO>(result));
+        }
+
         [Authorize(Role.Admin)]
         [HttpGet]
         public ActionResult<List<CompanyRegistrationRequestDTO>> GetAllUnansweredRequests()
