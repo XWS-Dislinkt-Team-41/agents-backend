@@ -1,9 +1,11 @@
 ﻿using System.Collections.Generic;
+using System.Security.Claims;
 using Agents.DTO;
 using Agents.Model;
 using Agents.Repository;
 using Agents.Utils;
 using AutoMapper;
+using Microsoft.AspNetCore.Http;
 
 namespace Agents.Service
 {
@@ -13,12 +15,16 @@ namespace Agents.Service
         private readonly IJobOfferRepository _jobOfferRepository;
         private readonly ISkillRepository _skillRepository;
         private readonly IMapper _mapper;
+        private readonly IHttpContextAccessor _contextAccessor;
+        private readonly IUserRepository _userRepository;
 
-        public JobOfferService(IJobOfferRepository jobOfferRepository, ISkillRepository skillRepository, IMapper mapper)
+        public JobOfferService(IJobOfferRepository jobOfferRepository, ISkillRepository skillRepository, IMapper mapper, IHttpContextAccessor contextAccessor, IUserRepository userRepository)
         {
             _jobOfferRepository = jobOfferRepository;
             _skillRepository = skillRepository;
             _mapper = mapper;
+            _contextAccessor = contextAccessor;
+            _userRepository = userRepository;
         }
 
         public List<JobOffer> GetAllJobOffers()
@@ -45,7 +51,7 @@ namespace Agents.Service
 
         private void PublishNewJobOffer(JobOffer jobOffer)
         {
-            _ = APICall.PostAsync(DislinktApiUrl, "", jobOffer);
+            _ = ApiCall.PostAsync(DislinktApiUrl, "", jobOffer, GetCurrentUserApiToken());
         }
 
         public JobOffer UpdateJobOffer(JobOfferDTO jobOfferDTO)
@@ -57,7 +63,7 @@ namespace Agents.Service
 
         private void PublishJobOfferUpdate(JobOffer jobOffer)
         {
-            _ = APICall.PutAsync(DislinktApiUrl, "", jobOffer);
+            _ = ApiCall.PutAsync(DislinktApiUrl, "", jobOffer, GetCurrentUserApiToken());
         }
 
         public void DeleteJobOffer(long id)
@@ -69,7 +75,14 @@ namespace Agents.Service
 
         private void PublishJobOfferDelete(JobOffer jobOffer)
         {
-            _ = APICall.DeleteAsync<JobOffer>(DislinktApiUrl, jobOffer.Id.ToString());
+            _ = ApiCall.DeleteAsync<JobOffer>(DislinktApiUrl, jobOffer.Id.ToString(), GetCurrentUserApiToken());
+        }
+
+        private string GetCurrentUserApiToken()
+        {
+            string id = _contextAccessor.HttpContext.User.FindFirstValue("id");
+            User user = _userRepository.Get(long.Parse(id));
+            return user.ApiToken;
         }
     }
 }

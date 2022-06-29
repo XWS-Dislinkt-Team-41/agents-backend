@@ -17,7 +17,7 @@ namespace Agents.Service
         }
         public async Task<bool> ConnectToDislinktApi(UserDTO userDto)
         {
-            var apiToken = await APICall.PostRetObjectAsync(DislinktApiUrl, "", userDto);
+            var apiToken = await ApiCall.PostRetObjectAsync(DislinktApiUrl, "", userDto);
             return UpdateUserApiToken(userDto.Id, apiToken as string);
         }
 

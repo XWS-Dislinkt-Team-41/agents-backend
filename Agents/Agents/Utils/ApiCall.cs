@@ -6,21 +6,23 @@ using Newtonsoft.Json;
 
 namespace Agents.Utils
 {
-    public static class APICall
+    public static class ApiCall
     {
-        private static HttpClient GetHttpClient(string url)
+        private static HttpClient GetHttpClient(string url, string apiToken)
         {
             var client = new HttpClient { BaseAddress = new Uri(url) };
             client.DefaultRequestHeaders.Accept.Clear();
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            if (apiToken != "") client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", apiToken);
+
             return client;
         }
 
-        public static async Task<T> GetAsync<T>(string url, string urlParameters)
+        public static async Task<T> GetAsync<T>(string url, string urlParameters, string apiToken = "")
         {
             try
             {
-                using var client = GetHttpClient(url);
+                using var client = GetHttpClient(url, apiToken);
                 HttpResponseMessage response = await client.GetAsync(urlParameters);
                 if (response.IsSuccessStatusCode)
                 {
@@ -37,11 +39,11 @@ namespace Agents.Utils
             }
         }
 
-        public static async Task<T> PostAsync<T>(string url, string urlParameters, T requestObj)
+        public static async Task<T> PostAsync<T>(string url, string urlParameters, T requestObj, string apiToken = "")
         {
             try
             {
-                using var client = GetHttpClient(url);
+                using var client = GetHttpClient(url, apiToken);
                 HttpResponseMessage response = await client.PostAsJsonAsync(urlParameters, requestObj);
                 if (response.IsSuccessStatusCode)
                 {
@@ -58,11 +60,11 @@ namespace Agents.Utils
             }
         }
 
-        public static async Task<object> PostRetObjectAsync<T>(string url, string urlParameters, T requestObj)
+        public static async Task<object> PostRetObjectAsync<T>(string url, string urlParameters, T requestObj, string apiToken = "")
         {
             try
             {
-                using var client = GetHttpClient(url);
+                using var client = GetHttpClient(url, apiToken);
                 HttpResponseMessage response = await client.PostAsJsonAsync(urlParameters, requestObj);
                 if (response.IsSuccessStatusCode)
                 {
@@ -79,11 +81,11 @@ namespace Agents.Utils
             }
         }
 
-        public static async Task<T> PutAsync<T>(string url, string urlParameters, T requestObj)
+        public static async Task<T> PutAsync<T>(string url, string urlParameters, T requestObj, string apiToken = "")
         {
             try
             {
-                using var client = GetHttpClient(url);
+                using var client = GetHttpClient(url, apiToken);
                 HttpResponseMessage response = await client.PutAsJsonAsync(urlParameters, requestObj);
                 if (response.IsSuccessStatusCode)
                 {
@@ -100,11 +102,11 @@ namespace Agents.Utils
             }
         }
 
-        public static async Task<T> DeleteAsync<T>(string url, string urlParameters)
+        public static async Task<T> DeleteAsync<T>(string url, string urlParameters, string apiToken = "")
         {
             try
             {
-                using var client = GetHttpClient(url);
+                using var client = GetHttpClient(url, apiToken);
                 HttpResponseMessage response = await client.DeleteAsync(urlParameters);
                 if (response.IsSuccessStatusCode)
                 {
