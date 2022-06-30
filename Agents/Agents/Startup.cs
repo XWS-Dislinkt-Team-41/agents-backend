@@ -5,6 +5,7 @@ using Agents.Repository;
 using Agents.Service;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -47,14 +48,16 @@ namespace Agents
 
             services.AddScoped<IJwtUtils, JwtUtils>();
             services.AddScoped<IUserService, UserService>();
-            services.AddScoped<ICompanyService, CompanyService>();
             services.AddTransient<IUserRepository, UserRepository>();
             services.AddScoped<ICompanyRegistrationRequestService, CompanyRegistrationRequestService>();
             services.AddScoped<ICompanyRegistrationRequestRepository, CompanyRegistrationRequestRepository>();
-            services.AddScoped<ISkillRepository, SkillRepository>();
-            services.AddScoped<IJobOfferRepository, JobOfferRepository>();
             services.AddScoped<IJobOfferService, JobOfferService>();
+            services.AddScoped<IJobOfferRepository, JobOfferRepository>();
+            services.AddScoped<ISkillRepository, SkillRepository>();
+            services.AddScoped<ICompanyService, CompanyService>();
             services.AddTransient<ICompanyRepository, CompanyRepository>();
+            services.AddScoped<IApiTokenService, ApiTokenService>();
+            services.AddScoped<IHttpContextAccessor, HttpContextAccessor>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

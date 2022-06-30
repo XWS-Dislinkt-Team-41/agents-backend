@@ -9,5 +9,26 @@ namespace Agents.Model
         public string Seniority { get; private set; }
         public string Description  { get; private set; }
         public virtual List<Skill> Skills { get; private set; }
+        public bool Published { get; private set; }
+
+        private JobOffer()
+        {
+        }
+
+        public JobOffer(long companyId, string position, string seniority, string description, List<Skill> skills)
+        {
+            CompanyId = companyId;
+            Position = position;
+            Seniority = seniority;
+            Description = description;
+            Skills = skills;
+            Published = false;
+        }
+
+        public bool Publish()
+        {
+            if (Published) return false;
+            return Published = true;
+        }
     }
 }

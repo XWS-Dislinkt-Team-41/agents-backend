@@ -10,7 +10,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Agents.Migrations
 {
     [DbContext(typeof(AgentDbContext))]
-    [Migration("20220628235212_M")]
+    [Migration("20220630121512_M")]
     partial class M
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -60,6 +60,9 @@ namespace Agents.Migrations
 
                     b.Property<string>("Position")
                         .HasColumnType("text");
+
+                    b.Property<bool>("Published")
+                        .HasColumnType("boolean");
 
                     b.Property<string>("Seniority")
                         .HasColumnType("text");
@@ -137,6 +140,9 @@ namespace Agents.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("integer")
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<string>("ApiToken")
+                        .HasColumnType("text");
 
                     b.Property<bool>("Confirmed")
                         .HasColumnType("boolean");

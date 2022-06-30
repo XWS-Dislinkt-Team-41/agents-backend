@@ -32,7 +32,8 @@ namespace Agents.Migrations
                     CompanyId = table.Column<long>(nullable: false),
                     Position = table.Column<string>(nullable: true),
                     Seniority = table.Column<string>(nullable: true),
-                    Description = table.Column<string>(nullable: true)
+                    Description = table.Column<string>(nullable: true),
+                    Published = table.Column<bool>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -50,7 +51,8 @@ namespace Agents.Migrations
                     Username = table.Column<string>(nullable: true),
                     Role = table.Column<int>(nullable: false),
                     Confirmed = table.Column<bool>(nullable: false),
-                    PasswordHash = table.Column<string>(nullable: true)
+                    PasswordHash = table.Column<string>(nullable: true),
+                    ApiToken = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {

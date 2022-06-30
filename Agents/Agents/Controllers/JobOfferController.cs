@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using Agents.Authorization;
 using Agents.DTO;
 using Agents.Model;
@@ -51,6 +52,14 @@ namespace Agents.Controllers
         public ActionResult<JobOfferDTO> PostNewJobOffer(JobOfferDTO jobOfferDTO)
         {
             var result = _jobOfferService.PostNewJobOffer(jobOfferDTO);
+            return Ok(_mapper.Map<JobOfferDTO>(result));
+        }
+
+        [Authorize(Role.Owner)]
+        [HttpPost("publish")]
+        public async Task<ActionResult<JobOfferDTO>> PublishJobOffer(JobOfferDTO jobOfferDTO)
+        {
+            var result = await _jobOfferService.PublishNewJobOffer(jobOfferDTO);
             return Ok(_mapper.Map<JobOfferDTO>(result));
         }
 

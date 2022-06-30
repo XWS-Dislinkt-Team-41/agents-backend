@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Security.Claims;
+using System.Threading.Tasks;
 using Agents.DTO;
+using Agents.Exception;
 using Agents.Model;
 using Agents.Repository;
 using Agents.Utils;
@@ -44,20 +46,27 @@ namespace Agents.Service
 
         public JobOffer PostNewJobOffer(JobOfferDTO jobOfferDTO)
         {
-            JobOffer jobOffer = _mapper.Map<JobOffer>(jobOfferDTO);
-            PublishNewJobOffer(jobOffer);
+            JobOffer jobOffer = new JobOffer(jobOfferDTO.CompanyId, jobOfferDTO.Position, jobOfferDTO.Seniority,
+                jobOfferDTO.Description, jobOfferDTO.Skills);
             return _jobOfferRepository.Insert(jobOffer);
         }
 
-        private void PublishNewJobOffer(JobOffer jobOffer)
+        public async Task<JobOffer> PublishNewJobOffer(JobOfferDTO jobOfferDTO)
         {
-            _ = ApiCall.PostAsync(DislinktApiUrl, "", jobOffer, GetCurrentUserApiToken());
+            JobOffer jobOffer = _mapper.Map<JobOffer>(jobOfferDTO);
+            if (!jobOffer.Publish()) throw new AppException("job offer already published");
+
+            JobOffer publishedJobOffer = await ApiCall.PostAsync(DislinktApiUrl, "", jobOffer, GetCurrentUserApiToken());
+            if (publishedJobOffer == null) throw new AppException("failed to publish job offer");
+
+            _jobOfferRepository.Update(jobOffer);
+            return publishedJobOffer;
         }
 
         public JobOffer UpdateJobOffer(JobOfferDTO jobOfferDTO)
         {
             JobOffer jobOffer = _mapper.Map<JobOffer>(jobOfferDTO);
-            PublishJobOfferUpdate(jobOffer);
+            if (jobOffer.Published) PublishJobOfferUpdate(jobOffer);
             return _jobOfferRepository.Update(jobOffer);
         }
 
@@ -69,7 +78,7 @@ namespace Agents.Service
         public void DeleteJobOffer(long id)
         {
             JobOffer jobOffer = _jobOfferRepository.Get(id);
-            PublishJobOfferDelete(jobOffer);
+            if (jobOffer.Published) PublishJobOfferDelete(jobOffer);
             _jobOfferRepository.Delete(id);
         }
 
