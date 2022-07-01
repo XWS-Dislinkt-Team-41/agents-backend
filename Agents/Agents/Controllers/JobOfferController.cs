@@ -31,6 +31,14 @@ namespace Agents.Controllers
             return Ok(result.Select(r => _mapper.Map<JobOfferDTO>(r)).ToList());
         }
 
+        [Authorize(Role.Owner)]
+        [HttpGet("company/{id:long}")]
+        public ActionResult<List<JobOfferDTO>> GetJobOffersByCompanyId(long id)
+        {
+            var result = _jobOfferService.GetJobOffersByCompanyId(id);
+            return Ok(result.Select(r => _mapper.Map<JobOfferDTO>(r)).ToList());
+        }
+
         [AllowAnonymous]
         [HttpGet("{id:long}")]
         public ActionResult<JobOfferDTO> GetJobOffer(long id)

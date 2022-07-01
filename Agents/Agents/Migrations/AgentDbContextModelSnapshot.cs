@@ -56,6 +56,9 @@ namespace Agents.Migrations
                     b.Property<string>("Description")
                         .HasColumnType("text");
 
+                    b.Property<string>("Name")
+                        .HasColumnType("text");
+
                     b.Property<string>("Position")
                         .HasColumnType("text");
 

@@ -34,6 +34,11 @@ namespace Agents.Service
             return _jobOfferRepository.GetAll();
         }
 
+        public List<JobOffer> GetJobOffersByCompanyId(long companyId)
+        {
+            return _jobOfferRepository.GetJobOffersByCompanyId(companyId);
+        }
+
         public JobOffer GetJobOffer(long id)
         {
             return _jobOfferRepository.Get(id);
@@ -46,7 +51,7 @@ namespace Agents.Service
 
         public JobOffer PostNewJobOffer(JobOfferDTO jobOfferDTO)
         {
-            JobOffer jobOffer = new JobOffer(jobOfferDTO.CompanyId, jobOfferDTO.Position, jobOfferDTO.Seniority,
+            JobOffer jobOffer = new JobOffer(jobOfferDTO.CompanyId, jobOfferDTO.Name, jobOfferDTO.Position, jobOfferDTO.Seniority,
                 jobOfferDTO.Description, jobOfferDTO.Skills);
             return _jobOfferRepository.Insert(jobOffer);
         }

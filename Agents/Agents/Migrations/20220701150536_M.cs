@@ -30,6 +30,7 @@ namespace Agents.Migrations
                     Id = table.Column<int>(nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     CompanyId = table.Column<long>(nullable: false),
+                    Name = table.Column<string>(nullable: true),
                     Position = table.Column<string>(nullable: true),
                     Seniority = table.Column<string>(nullable: true),
                     Description = table.Column<string>(nullable: true),

@@ -10,7 +10,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Agents.Migrations
 {
     [DbContext(typeof(AgentDbContext))]
-    [Migration("20220630121512_M")]
+    [Migration("20220701150536_M")]
     partial class M
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -56,6 +56,9 @@ namespace Agents.Migrations
                         .HasColumnType("bigint");
 
                     b.Property<string>("Description")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Name")
                         .HasColumnType("text");
 
                     b.Property<string>("Position")
