@@ -31,7 +31,6 @@ namespace Agents.Service
         {
             var user = _userRepository.GetByUsername(model.Username);
 
-
             // validate
             if (user == null || !BCrypt.Net.BCrypt.Verify(model.Password, user.PasswordHash))
                 throw new AppException("Username or password is incorrect");

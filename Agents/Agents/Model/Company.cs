@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace Agents.Model
 {
@@ -6,10 +7,16 @@ namespace Agents.Model
     {
 
         public Company(){}
+
+        public String Name { get; set; }
         public virtual List<Comment> Comments { get; set; }
 
         public virtual List<Interview> Interviews { get; set; }
 
         public virtual List<JobPositionPayment> JobPositionsPayments { get; set; }
+
+        public float Grade { get; set; }
+
+        public List<int> UsersGrade { get; set; }
     }
 }

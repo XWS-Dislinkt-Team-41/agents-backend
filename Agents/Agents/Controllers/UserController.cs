@@ -1,4 +1,7 @@
 ﻿using System.Collections.Generic;
+using System.Diagnostics;
+using System.Linq;
+using System.Security.Claims;
 using Agents.Authorization;
 using Agents.DTO;
 using Agents.Model;
@@ -10,22 +13,28 @@ namespace Agents.Controllers
 {
     [ApiController]
     [Route("[controller]")]
+
     public class UserController : ControllerBase
     {
         private readonly IUserService _userService;
         private readonly IMapper _mapper;
+        private readonly IJwtUtils _iJwtUtils;
 
-        public UserController(IUserService userService, IMapper mapper)
+        public UserController(IUserService userService, IMapper mapper, IJwtUtils iJwtUtils)
         {
             _userService = userService;
             _mapper = mapper;
+            _iJwtUtils = iJwtUtils;
         }
 
         [AllowAnonymous]
         [HttpGet]
-        public List<User> GetAll()
+        public User GetPrincipal()
         {
-            return _userService.GetAll();
+            var token = HttpContext.Request.Headers["Authorization"].FirstOrDefault()?.Split(" ").Last();
+            var userId = _iJwtUtils.ValidateJwtToken(token);
+            if (userId != null) return _userService.GetById(userId.Value);
+            return null;
         }
 
         [AllowAnonymous]
