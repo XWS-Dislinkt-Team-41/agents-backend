@@ -32,7 +32,7 @@ namespace Agents.Service
             var user = _userRepository.GetByUsername(model.Username);
 
             // validate
-            if (user == null || !BCrypt.Net.BCrypt.Verify(model.Password, user.PasswordHash))
+            if (user == null || !BCrypt.Net.BCrypt.Verify(model.Password, user.Password))
                 throw new AppException("Username or password is incorrect");
 
             // authentication successful so generate jwt token
@@ -76,7 +76,7 @@ namespace Agents.Service
             }
 
             // hash password
-            user.PasswordHash = BCrypt.Net.BCrypt.HashPassword(userDTO.PasswordHash);
+            user.Password = BCrypt.Net.BCrypt.HashPassword(userDTO.Password);
 
             // save user
             return _userRepository.Insert(user);

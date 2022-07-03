@@ -11,9 +11,7 @@ namespace Agents.Model
         public Role Role { get; set; }
 
         public bool Confirmed { get; set; }
-
-        [JsonIgnore]
-        public string PasswordHash { get; set; }
+        public string Password { get; set; }
 
     }
 }
