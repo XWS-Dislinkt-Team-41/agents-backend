@@ -10,8 +10,7 @@ namespace Agents.Model
         public string Username { get; set; }
         public Role Role { get; set; }
         public bool Confirmed { get; set; }
-        [JsonIgnore]
-        public string PasswordHash { get; set; }
+        public string Password { get; set; }
         public string ApiToken { get; set; }
     }
 }
