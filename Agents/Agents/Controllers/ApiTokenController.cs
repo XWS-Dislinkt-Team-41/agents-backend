@@ -18,11 +18,12 @@ namespace Agents.Controllers
             _apiTokenService = apiTokenService;
         }
 
-        [Authorize(Role.Owner)]
+        //[Authorize(Role.Owner)]
+        [AllowAnonymous]
         [HttpPost]
-        public async Task<IActionResult> ConnectToDislinktApi(UserDTO userDto)
+        public async Task<IActionResult> ConnectToDislinktApi(AuthenticateRequestDTO authRequestDto)
         {
-            if (await _apiTokenService.ConnectToDislinktApi(userDto))
+            if (await _apiTokenService.ConnectToDislinktApi(authRequestDto))
                 return NoContent();
             return BadRequest();
         }

@@ -5,7 +5,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace Agents.Migrations
 {
-    public partial class _10M : Migration
+    public partial class M : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -208,8 +208,8 @@ namespace Agents.Migrations
                 columns: new[] { "Id", "ApiToken", "Confirmed", "FirstName", "LastName", "Password", "Role", "Username" },
                 values: new object[,]
                 {
-                    { 1L, null, false, "Aleksa", "Papovic", "$2a$11$Tq0SvtVdqnyWcMWEje8CI.0CfISImBVxKhYf4iScX4IyPeWVjMDgq", 0, "pape" },
-                    { 2L, null, false, "Darko", "Vrbaski", "$2a$11$lOWeABZRwxHz9oOm0EXChe.ie9IenmRGNBE2P/sB98WYtlp70tepe", 2, "dare" }
+                    { 1L, null, false, "Aleksa", "Papovic", "$2a$11$KUqQt7k3qJmVN.f5r/UL8uwz5btYkaZE/bxHEoEG3bPCQuz3EaHyG", 0, "pape" },
+                    { 2L, null, false, "Darko", "Vrbaski", "$2a$11$iddi/c4J.tutkBegt4uSZe9vcZ2Y4yJUVslTHL9FBgZzkqbpwL4dK", 2, "dare" }
                 });
 
             migrationBuilder.CreateIndex(

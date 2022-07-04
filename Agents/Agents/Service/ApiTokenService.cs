@@ -15,15 +15,15 @@ namespace Agents.Service
         {
             _userRepository = userRepository;
         }
-        public async Task<bool> ConnectToDislinktApi(UserDTO userDto)
+        public async Task<bool> ConnectToDislinktApi(AuthenticateRequestDTO authRequestDto)
         {
-            var apiToken = await ApiCall.PostRetObjectAsync(DislinktApiUrl, "", userDto);
-            return UpdateUserApiToken(userDto.Id, apiToken as string);
+            var apiToken = await ApiCall.PostRetObjectAsync(DislinktApiUrl, "", authRequestDto);
+            return UpdateUserApiToken(authRequestDto.Username, apiToken as string);
         }
 
-        private bool UpdateUserApiToken(long userId, string apiToken)
+        private bool UpdateUserApiToken(string username, string apiToken)
         {
-            User user = _userRepository.Get(userId);
+            User user = _userRepository.GetByUsername(username);
             if (user == null) return false;
             user.ApiToken = apiToken;
             _userRepository.Update(user);

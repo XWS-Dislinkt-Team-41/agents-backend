@@ -11,8 +11,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Agents.Migrations
 {
     [DbContext(typeof(AgentDbContext))]
-    [Migration("20220711101542_10M")]
-    partial class _10M
+    [Migration("20220711150811_M")]
+    partial class M
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -340,7 +340,7 @@ namespace Agents.Migrations
                             Confirmed = false,
                             FirstName = "Aleksa",
                             LastName = "Papovic",
-                            Password = "$2a$11$Tq0SvtVdqnyWcMWEje8CI.0CfISImBVxKhYf4iScX4IyPeWVjMDgq",
+                            Password = "$2a$11$KUqQt7k3qJmVN.f5r/UL8uwz5btYkaZE/bxHEoEG3bPCQuz3EaHyG",
                             Role = 0,
                             Username = "pape"
                         },
@@ -350,7 +350,7 @@ namespace Agents.Migrations
                             Confirmed = false,
                             FirstName = "Darko",
                             LastName = "Vrbaski",
-                            Password = "$2a$11$lOWeABZRwxHz9oOm0EXChe.ie9IenmRGNBE2P/sB98WYtlp70tepe",
+                            Password = "$2a$11$iddi/c4J.tutkBegt4uSZe9vcZ2Y4yJUVslTHL9FBgZzkqbpwL4dK",
                             Role = 2,
                             Username = "dare"
                         });
