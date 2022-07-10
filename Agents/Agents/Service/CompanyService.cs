@@ -53,12 +53,20 @@ namespace Agents.Service
 
         public CompanyDTO AddJobPositionPayment(PaymentDTO paymentDTO)
         {
-            //JobPositionPayment jobPosition = _mapper.Map<JobPositionPayment>(jobPositionPaymentDTO);
-            Company company = _companyRepository.Get(paymentDTO.CompanyId); 
+            Company company = _companyRepository.Get(paymentDTO.CompanyId);
+            Payment payment = _mapper.Map<Payment>(paymentDTO);
             JobPositionPayment oldPositionPayment =
-                company.JobPositionsPayments.SingleOrDefault((jobPosition =>
-                    jobPosition.JobPosition.Equals(paymentDTO.JobPosition)));
-            JobPositionPayment newJobPositionPayment = new JobPositionPayment(_mapper.Map<Payment>(paymentDTO));
+                company.JobPositionsPayments.SingleOrDefault(jobPosition =>
+                    jobPosition.JobPosition.Equals(paymentDTO.JobPosition));
+            if (oldPositionPayment != null)
+            {
+                payment.JobPositionPayment.Reviewers = oldPositionPayment.Reviewers;
+                payment.JobPositionPayment.ReviewsNumber = oldPositionPayment.ReviewsNumber;
+                payment.JobPositionPayment.Average = oldPositionPayment.Average;
+            }
+
+
+            JobPositionPayment newJobPositionPayment = new JobPositionPayment(payment);
             company.JobPositionsPayments.Remove(oldPositionPayment);
             company.JobPositionsPayments.Add(newJobPositionPayment);
             _companyRepository.Update(company);

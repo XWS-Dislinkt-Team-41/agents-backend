@@ -45,14 +45,14 @@ namespace Agents.Migrations
                     b.Property<string>("ProjectsImpression")
                         .HasColumnType("text");
 
-                    b.Property<int>("ReviewedCompanyId")
-                        .HasColumnType("integer");
+                    b.Property<long>("ReviewedCompanyId")
+                        .HasColumnType("bigint");
 
                     b.Property<string>("UserEngagement")
                         .HasColumnType("text");
 
-                    b.Property<int>("UserId")
-                        .HasColumnType("integer");
+                    b.Property<long>("UserId")
+                        .HasColumnType("bigint");
 
                     b.HasKey("Id");
 
@@ -66,6 +66,7 @@ namespace Agents.Migrations
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bigint")
+                        .HasAnnotation("Npgsql:IdentitySequenceOptions", "'4', '1', '', '', 'False', '1'")
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
                     b.Property<string>("ActivityDescription")
@@ -125,6 +126,9 @@ namespace Agents.Migrations
                         .HasColumnType("text");
 
                     b.Property<string>("ContactInformation")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Name")
                         .HasColumnType("text");
 
                     b.Property<int>("Status")
@@ -207,10 +211,7 @@ namespace Agents.Migrations
                     b.Property<double>("Average")
                         .HasColumnType("double precision");
 
-                    b.Property<int>("CompanyId")
-                        .HasColumnType("integer");
-
-                    b.Property<long?>("CompanyId1")
+                    b.Property<long>("CompanyId")
                         .HasColumnType("bigint");
 
                     b.Property<string>("JobPosition")
@@ -222,15 +223,15 @@ namespace Agents.Migrations
                     b.Property<double>("Min")
                         .HasColumnType("double precision");
 
-                    b.Property<List<int>>("Reviewers")
-                        .HasColumnType("integer[]");
+                    b.Property<List<long>>("Reviewers")
+                        .HasColumnType("bigint[]");
 
                     b.Property<int>("ReviewsNumber")
                         .HasColumnType("integer");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CompanyId1");
+                    b.HasIndex("CompanyId");
 
                     b.ToTable("JobPositionPayment");
                 });
@@ -337,7 +338,7 @@ namespace Agents.Migrations
                             Confirmed = false,
                             FirstName = "Aleksa",
                             LastName = "Papovic",
-                            Password = "$2a$11$i.Wr4UOKFmgLebB5jbSM1uJd9gkp1Uo70MnABa0EWA8zuHFwWmRWG",
+                            Password = "$2a$11$Tq0SvtVdqnyWcMWEje8CI.0CfISImBVxKhYf4iScX4IyPeWVjMDgq",
                             Role = 0,
                             Username = "pape"
                         },
@@ -347,7 +348,7 @@ namespace Agents.Migrations
                             Confirmed = false,
                             FirstName = "Darko",
                             LastName = "Vrbaski",
-                            Password = "$2a$11$Hp2N8Eeh0E/CX9Ds3WS9YeBD.3bzcBK6EzUO3z5ZYg/30Z2IrAopG",
+                            Password = "$2a$11$lOWeABZRwxHz9oOm0EXChe.ie9IenmRGNBE2P/sB98WYtlp70tepe",
                             Role = 2,
                             Username = "dare"
                         });
@@ -371,7 +372,9 @@ namespace Agents.Migrations
                 {
                     b.HasOne("Agents.Model.Company", null)
                         .WithMany("JobPositionsPayments")
-                        .HasForeignKey("CompanyId1");
+                        .HasForeignKey("CompanyId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Agents.Model.Skill", b =>

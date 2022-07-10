@@ -5,8 +5,8 @@ namespace Agents.DTO
 {
     public class CommentDTO : Entity
     {
-        public int ReviewedJobId { get; set; }
-        public int UserId { get; set; }
+        public long ReviewedCompanyId { get; set; }
+        public long UserId { get; set; }
 
         public String JobPosition { get; set; }
 

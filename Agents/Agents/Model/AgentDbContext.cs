@@ -62,7 +62,7 @@ namespace Agents.Model
                     });
             });
 
-            modelBuilder.Entity<User>().Property(e => e.Id).HasIdentityOptions(startValue: 3);
+            modelBuilder.Entity<Company>().Property(e => e.Id).HasIdentityOptions(startValue: 4);
 
 
             modelBuilder.Entity<Skill>(s =>

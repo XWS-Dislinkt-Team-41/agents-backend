@@ -13,6 +13,7 @@ namespace Agents.Mapper
             CreateMap<CompanyDTO, Company>().ReverseMap();
             CreateMap<CommentDTO, Comment>().ReverseMap();
             CreateMap<PaymentDTO, Payment>().ReverseMap();
+            CreateMap<InterviewDTO, Interview>().ReverseMap();
         }
     }
 }

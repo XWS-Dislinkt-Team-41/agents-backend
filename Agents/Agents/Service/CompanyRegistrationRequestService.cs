@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Agents.DTO;
 using Agents.Model;
 using Agents.Repository;
@@ -8,16 +9,18 @@ namespace Agents.Service
     public class CompanyRegistrationRequestService : ICompanyRegistrationRequestService
     {
         private readonly ICompanyRegistrationRequestRepository _requestRepository;
+        private readonly ICompanyRepository _companyRepository;
         private readonly IUserRepository _userRepository;
 
-        public CompanyRegistrationRequestService(ICompanyRegistrationRequestRepository requestRepository, IUserRepository userRepository)
+        public CompanyRegistrationRequestService(ICompanyRegistrationRequestRepository requestRepository, IUserRepository userRepository, ICompanyRepository companyRepository)
         {
             _requestRepository = requestRepository;
+            _companyRepository = companyRepository;
             _userRepository = userRepository;
         }
         public CompanyRegistrationRequest Create(CompanyRegistrationRequestDTO requestDto)
         {
-            CompanyRegistrationRequest companyRegistrationRequest = new CompanyRegistrationRequest(requestDto.UserId, requestDto.ContactInformation, requestDto.ActivityDescription);
+            CompanyRegistrationRequest companyRegistrationRequest = new CompanyRegistrationRequest(requestDto.UserId, requestDto.ContactInformation, requestDto.ActivityDescription,requestDto.Name);
             return _requestRepository.Insert(companyRegistrationRequest);
         }
 
@@ -34,6 +37,13 @@ namespace Agents.Service
             user.Role = Role.Owner;
             _requestRepository.Update(registrationRequest);
             _userRepository.Update(user);
+            Company newCompany = new Company();
+            newCompany.Name = registrationRequest.Name;
+            newCompany.ActivityDescription = registrationRequestDTO.ActivityDescription;
+            newCompany.ContactInformation = registrationRequestDTO.ContactInformation;
+            newCompany.Image =
+                "https://source.unsplash.com/random";
+            _companyRepository.Insert(newCompany);
         }
 
         public void Decline(CompanyRegistrationRequestDTO registrationRequestDTO)
