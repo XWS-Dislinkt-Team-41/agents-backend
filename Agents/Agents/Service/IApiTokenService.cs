@@ -5,6 +5,6 @@ namespace Agents.Service
 {
     public interface IApiTokenService
     {
-        public Task<bool> ConnectToDislinktApi(UserDTO userDto);
+        public Task<bool> ConnectToDislinktApi(AuthenticateRequestDTO authRequestDto);
     }
 }

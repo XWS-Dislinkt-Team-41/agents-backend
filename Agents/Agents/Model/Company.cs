@@ -8,6 +8,7 @@ namespace Agents.Model
 
         public Company(){}
 
+        public long OwnerId { get; set; }
         public String Name { get; set; }
         public virtual List<Comment> Comments { get; set; }
 

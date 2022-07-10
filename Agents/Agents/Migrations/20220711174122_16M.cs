@@ -5,7 +5,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace Agents.Migrations
 {
-    public partial class _10M : Migration
+    public partial class _16M : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -16,6 +16,7 @@ namespace Agents.Migrations
                     Id = table.Column<long>(nullable: false)
                         .Annotation("Npgsql:IdentitySequenceOptions", "'4', '1', '', '', 'False', '1'")
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    OwnerId = table.Column<long>(nullable: false),
                     Name = table.Column<string>(nullable: true),
                     Grade = table.Column<float>(nullable: false),
                     UsersGrade = table.Column<List<int>>(nullable: true),
@@ -180,12 +181,12 @@ namespace Agents.Migrations
 
             migrationBuilder.InsertData(
                 table: "Company",
-                columns: new[] { "Id", "ActivityDescription", "ContactInformation", "Grade", "Image", "Name", "UsersGrade" },
+                columns: new[] { "Id", "ActivityDescription", "ContactInformation", "Grade", "Image", "Name", "OwnerId", "UsersGrade" },
                 values: new object[,]
                 {
-                    { 1L, null, null, 0f, "https://upload.wikimedia.org/wikipedia/commons/9/9d/Flag_of_Arkansas.svg", "Arkansas", null },
-                    { 2L, null, null, 0f, "https://upload.wikimedia.org/wikipedia/commons/f/f7/Flag_of_Florida.svg", "Florida", null },
-                    { 3L, null, null, 0f, "https://upload.wikimedia.org/wikipedia/commons/f/f7/Flag_of_Texas.svg", "Texas", null }
+                    { 1L, null, null, 0f, "https://upload.wikimedia.org/wikipedia/commons/9/9d/Flag_of_Arkansas.svg", "Arkansas", 0L, null },
+                    { 2L, null, null, 0f, "https://upload.wikimedia.org/wikipedia/commons/f/f7/Flag_of_Florida.svg", "Florida", 0L, null },
+                    { 3L, null, null, 0f, "https://upload.wikimedia.org/wikipedia/commons/f/f7/Flag_of_Texas.svg", "Texas", 0L, null }
                 });
 
             migrationBuilder.InsertData(
@@ -208,8 +209,8 @@ namespace Agents.Migrations
                 columns: new[] { "Id", "ApiToken", "Confirmed", "FirstName", "LastName", "Password", "Role", "Username" },
                 values: new object[,]
                 {
-                    { 1L, null, false, "Aleksa", "Papovic", "$2a$11$Tq0SvtVdqnyWcMWEje8CI.0CfISImBVxKhYf4iScX4IyPeWVjMDgq", 0, "pape" },
-                    { 2L, null, false, "Darko", "Vrbaski", "$2a$11$lOWeABZRwxHz9oOm0EXChe.ie9IenmRGNBE2P/sB98WYtlp70tepe", 2, "dare" }
+                    { 1L, null, false, "Aleksa", "Papovic", "$2a$11$NuKfucbsf6k7bj.fAhUTieSe03.tWyYtxTJ/cDw4BlvEzSh1EioEy", 0, "pape" },
+                    { 2L, null, false, "Darko", "Vrbaski", "$2a$11$ZObRkR.kmNkbsuMfPAfzOuJwsIcfkuH8b2ay80wWOIdBB20AuQb.q", 2, "dare" }
                 });
 
             migrationBuilder.CreateIndex(

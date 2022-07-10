@@ -6,6 +6,8 @@ namespace Agents.DTO
 {
     public class CompanyDTO:Entity
     {
+
+        public long OwnerId { get; set; }
         public String Name { get; set; }
         public List<Comment> Comments { get; set; }
 

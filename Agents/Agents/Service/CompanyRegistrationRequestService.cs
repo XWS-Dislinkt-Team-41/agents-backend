@@ -43,6 +43,7 @@ namespace Agents.Service
             newCompany.ContactInformation = registrationRequestDTO.ContactInformation;
             newCompany.Image =
                 "https://source.unsplash.com/random";
+            newCompany.OwnerId = registrationRequestDTO.UserId;
             _companyRepository.Insert(newCompany);
         }
 

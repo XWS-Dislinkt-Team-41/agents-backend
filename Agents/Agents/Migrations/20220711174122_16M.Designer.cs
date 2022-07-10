@@ -11,8 +11,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Agents.Migrations
 {
     [DbContext(typeof(AgentDbContext))]
-    [Migration("20220711101542_10M")]
-    partial class _10M
+    [Migration("20220711174122_16M")]
+    partial class _16M
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -86,6 +86,9 @@ namespace Agents.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("text");
 
+                    b.Property<long>("OwnerId")
+                        .HasColumnType("bigint");
+
                     b.Property<List<int>>("UsersGrade")
                         .HasColumnType("integer[]");
 
@@ -99,21 +102,24 @@ namespace Agents.Migrations
                             Id = 1L,
                             Grade = 0f,
                             Image = "https://upload.wikimedia.org/wikipedia/commons/9/9d/Flag_of_Arkansas.svg",
-                            Name = "Arkansas"
+                            Name = "Arkansas",
+                            OwnerId = 0L
                         },
                         new
                         {
                             Id = 2L,
                             Grade = 0f,
                             Image = "https://upload.wikimedia.org/wikipedia/commons/f/f7/Flag_of_Florida.svg",
-                            Name = "Florida"
+                            Name = "Florida",
+                            OwnerId = 0L
                         },
                         new
                         {
                             Id = 3L,
                             Grade = 0f,
                             Image = "https://upload.wikimedia.org/wikipedia/commons/f/f7/Flag_of_Texas.svg",
-                            Name = "Texas"
+                            Name = "Texas",
+                            OwnerId = 0L
                         });
                 });
 
@@ -340,7 +346,7 @@ namespace Agents.Migrations
                             Confirmed = false,
                             FirstName = "Aleksa",
                             LastName = "Papovic",
-                            Password = "$2a$11$Tq0SvtVdqnyWcMWEje8CI.0CfISImBVxKhYf4iScX4IyPeWVjMDgq",
+                            Password = "$2a$11$NuKfucbsf6k7bj.fAhUTieSe03.tWyYtxTJ/cDw4BlvEzSh1EioEy",
                             Role = 0,
                             Username = "pape"
                         },
@@ -350,7 +356,7 @@ namespace Agents.Migrations
                             Confirmed = false,
                             FirstName = "Darko",
                             LastName = "Vrbaski",
-                            Password = "$2a$11$lOWeABZRwxHz9oOm0EXChe.ie9IenmRGNBE2P/sB98WYtlp70tepe",
+                            Password = "$2a$11$ZObRkR.kmNkbsuMfPAfzOuJwsIcfkuH8b2ay80wWOIdBB20AuQb.q",
                             Role = 2,
                             Username = "dare"
                         });
