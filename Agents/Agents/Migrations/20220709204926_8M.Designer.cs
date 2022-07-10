@@ -10,8 +10,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Agents.Migrations
 {
     [DbContext(typeof(AgentDbContext))]
-    [Migration("20220701150536_M")]
-    partial class M
+    [Migration("20220709204926_8M")]
+    partial class _8M
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -23,9 +23,9 @@ namespace Agents.Migrations
 
             modelBuilder.Entity("Agents.Model.CompanyRegistrationRequest", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("integer")
+                        .HasColumnType("bigint")
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
                     b.Property<string>("ActivityDescription")
@@ -47,9 +47,9 @@ namespace Agents.Migrations
 
             modelBuilder.Entity("Agents.Model.JobOffer", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("integer")
+                        .HasColumnType("bigint")
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
                     b.Property<long>("CompanyId")
@@ -77,13 +77,13 @@ namespace Agents.Migrations
 
             modelBuilder.Entity("Agents.Model.Skill", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("integer")
+                        .HasColumnType("bigint")
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
-                    b.Property<int?>("JobOfferId")
-                        .HasColumnType("integer");
+                    b.Property<long?>("JobOfferId")
+                        .HasColumnType("bigint");
 
                     b.Property<string>("Name")
                         .HasColumnType("text");
@@ -97,51 +97,52 @@ namespace Agents.Migrations
                     b.HasData(
                         new
                         {
-                            Id = 1,
+                            Id = 1L,
                             Name = "C#"
                         },
                         new
                         {
-                            Id = 2,
+                            Id = 2L,
                             Name = "C"
                         },
                         new
                         {
-                            Id = 3,
+                            Id = 3L,
                             Name = "C++"
                         },
                         new
                         {
-                            Id = 4,
+                            Id = 4L,
                             Name = "Java"
                         },
                         new
                         {
-                            Id = 5,
+                            Id = 5L,
                             Name = ".NET"
                         },
                         new
                         {
-                            Id = 6,
+                            Id = 6L,
                             Name = "SQL"
                         },
                         new
                         {
-                            Id = 7,
+                            Id = 7L,
                             Name = "Python"
                         },
                         new
                         {
-                            Id = 8,
+                            Id = 8L,
                             Name = "Go"
                         });
                 });
 
             modelBuilder.Entity("Agents.Model.User", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("integer")
+                        .HasColumnType("bigint")
+                        .HasAnnotation("Npgsql:IdentitySequenceOptions", "'3', '1', '', '', 'False', '1'")
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
                     b.Property<string>("ApiToken")
@@ -156,7 +157,7 @@ namespace Agents.Migrations
                     b.Property<string>("LastName")
                         .HasColumnType("text");
 
-                    b.Property<string>("PasswordHash")
+                    b.Property<string>("Password")
                         .HasColumnType("text");
 
                     b.Property<int>("Role")
@@ -168,6 +169,28 @@ namespace Agents.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Users");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1L,
+                            Confirmed = false,
+                            FirstName = "Aleksa",
+                            LastName = "Papovic",
+                            Password = "$2a$11$m2.lUKjrD3ikglgLh.kNk.Chdvu5YmQDEJwQqYdocFeuaaGLqI6Mi",
+                            Role = 0,
+                            Username = "pape"
+                        },
+                        new
+                        {
+                            Id = 2L,
+                            Confirmed = false,
+                            FirstName = "Darko",
+                            LastName = "Vrbaski",
+                            Password = "$2a$11$ZFhGje6Q/LTcP4o3XJvyde19EK0PYxFfAwbAuT5gHvgE3McREf946",
+                            Role = 2,
+                            Username = "dare"
+                        });
                 });
 
             modelBuilder.Entity("Agents.Model.Skill", b =>

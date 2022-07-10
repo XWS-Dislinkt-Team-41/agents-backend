@@ -4,15 +4,17 @@ using System.Collections.Generic;
 using Agents.Model;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace Agents.Migrations
 {
     [DbContext(typeof(AgentDbContext))]
-    partial class AgentDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220709223705_10MCompany")]
+    partial class _10MCompany
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -337,7 +339,7 @@ namespace Agents.Migrations
                             Confirmed = false,
                             FirstName = "Aleksa",
                             LastName = "Papovic",
-                            Password = "$2a$11$i.Wr4UOKFmgLebB5jbSM1uJd9gkp1Uo70MnABa0EWA8zuHFwWmRWG",
+                            Password = "$2a$11$IsNh0Bb.4naSXZa4tzrbn.eoqyCXcxtmy/jDfhvKd3zADda7TmR2e",
                             Role = 0,
                             Username = "pape"
                         },
@@ -347,7 +349,7 @@ namespace Agents.Migrations
                             Confirmed = false,
                             FirstName = "Darko",
                             LastName = "Vrbaski",
-                            Password = "$2a$11$Hp2N8Eeh0E/CX9Ds3WS9YeBD.3bzcBK6EzUO3z5ZYg/30Z2IrAopG",
+                            Password = "$2a$11$85lkTgKlL6a/D6eTWzKOMeb70Du/qj5xL1xrjj7.I/m4xytpopN3m",
                             Role = 2,
                             Username = "dare"
                         });

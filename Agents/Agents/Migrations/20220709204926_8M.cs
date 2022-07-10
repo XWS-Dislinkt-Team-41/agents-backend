@@ -3,7 +3,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace Agents.Migrations
 {
-    public partial class M : Migration
+    public partial class _8M : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -11,7 +11,7 @@ namespace Agents.Migrations
                 name: "CompanyRegistrationRequests",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false)
+                    Id = table.Column<long>(nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     Status = table.Column<int>(nullable: false),
                     UserId = table.Column<long>(nullable: false),
@@ -27,7 +27,7 @@ namespace Agents.Migrations
                 name: "JobOffers",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false)
+                    Id = table.Column<long>(nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     CompanyId = table.Column<long>(nullable: false),
                     Name = table.Column<string>(nullable: true),
@@ -45,14 +45,15 @@ namespace Agents.Migrations
                 name: "Users",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false)
+                    Id = table.Column<long>(nullable: false)
+                        .Annotation("Npgsql:IdentitySequenceOptions", "'3', '1', '', '', 'False', '1'")
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     FirstName = table.Column<string>(nullable: true),
                     LastName = table.Column<string>(nullable: true),
                     Username = table.Column<string>(nullable: true),
                     Role = table.Column<int>(nullable: false),
                     Confirmed = table.Column<bool>(nullable: false),
-                    PasswordHash = table.Column<string>(nullable: true),
+                    Password = table.Column<string>(nullable: true),
                     ApiToken = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
@@ -64,10 +65,10 @@ namespace Agents.Migrations
                 name: "Skills",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false)
+                    Id = table.Column<long>(nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     Name = table.Column<string>(nullable: true),
-                    JobOfferId = table.Column<int>(nullable: true)
+                    JobOfferId = table.Column<long>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -85,14 +86,23 @@ namespace Agents.Migrations
                 columns: new[] { "Id", "JobOfferId", "Name" },
                 values: new object[,]
                 {
-                    { 1, null, "C#" },
-                    { 2, null, "C" },
-                    { 3, null, "C++" },
-                    { 4, null, "Java" },
-                    { 5, null, ".NET" },
-                    { 6, null, "SQL" },
-                    { 7, null, "Python" },
-                    { 8, null, "Go" }
+                    { 1L, null, "C#" },
+                    { 2L, null, "C" },
+                    { 3L, null, "C++" },
+                    { 4L, null, "Java" },
+                    { 5L, null, ".NET" },
+                    { 6L, null, "SQL" },
+                    { 7L, null, "Python" },
+                    { 8L, null, "Go" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Users",
+                columns: new[] { "Id", "ApiToken", "Confirmed", "FirstName", "LastName", "Password", "Role", "Username" },
+                values: new object[,]
+                {
+                    { 1L, null, false, "Aleksa", "Papovic", "$2a$11$m2.lUKjrD3ikglgLh.kNk.Chdvu5YmQDEJwQqYdocFeuaaGLqI6Mi", 0, "pape" },
+                    { 2L, null, false, "Darko", "Vrbaski", "$2a$11$ZFhGje6Q/LTcP4o3XJvyde19EK0PYxFfAwbAuT5gHvgE3McREf946", 2, "dare" }
                 });
 
             migrationBuilder.CreateIndex(

@@ -18,5 +18,10 @@ namespace Agents.Model
         public float Grade { get; set; }
 
         public List<int> UsersGrade { get; set; }
+        public string ContactInformation { get; set; }
+        public string ActivityDescription { get; set; }
+
+        public String Image { get; set; }
+
     }
 }

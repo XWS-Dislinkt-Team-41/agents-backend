@@ -5,7 +5,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace Agents.Migrations
 {
-    public partial class _6M : Migration
+    public partial class _9MCompany : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -17,45 +17,12 @@ namespace Agents.Migrations
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     Name = table.Column<string>(nullable: true),
                     Grade = table.Column<float>(nullable: false),
-                    UsersGrade = table.Column<List<int>>(nullable: true)
+                    UsersGrade = table.Column<List<int>>(nullable: true),
+                    Image = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Company", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "JobOffers",
-                columns: table => new
-                {
-                    Id = table.Column<long>(nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    CompanyId = table.Column<long>(nullable: false),
-                    Position = table.Column<string>(nullable: true),
-                    Seniority = table.Column<string>(nullable: true),
-                    Description = table.Column<string>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_JobOffers", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Users",
-                columns: table => new
-                {
-                    Id = table.Column<long>(nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    FirstName = table.Column<string>(nullable: true),
-                    LastName = table.Column<string>(nullable: true),
-                    Username = table.Column<string>(nullable: true),
-                    Role = table.Column<int>(nullable: false),
-                    Confirmed = table.Column<bool>(nullable: false),
-                    Password = table.Column<string>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Users", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -83,27 +50,6 @@ namespace Agents.Migrations
                         principalTable: "Company",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "CompanyRegistrationRequests",
-                columns: table => new
-                {
-                    Id = table.Column<long>(nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    Status = table.Column<int>(nullable: false),
-                    UserId = table.Column<long>(nullable: false),
-                    CompanyId = table.Column<long>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_CompanyRegistrationRequests", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_CompanyRegistrationRequests_Company_CompanyId",
-                        column: x => x.CompanyId,
-                        principalTable: "Company",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -155,49 +101,33 @@ namespace Agents.Migrations
                         onDelete: ReferentialAction.Restrict);
                 });
 
-            migrationBuilder.CreateTable(
-                name: "Skills",
-                columns: table => new
-                {
-                    Id = table.Column<long>(nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    Name = table.Column<string>(nullable: true),
-                    JobOfferId = table.Column<long>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Skills", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Skills_JobOffers_JobOfferId",
-                        column: x => x.JobOfferId,
-                        principalTable: "JobOffers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
             migrationBuilder.InsertData(
-                table: "Skills",
-                columns: new[] { "Id", "JobOfferId", "Name" },
+                table: "Company",
+                columns: new[] { "Id", "Grade", "Image", "Name", "UsersGrade" },
                 values: new object[,]
                 {
-                    { 1L, null, "C#" },
-                    { 2L, null, "C" },
-                    { 3L, null, "C++" },
-                    { 4L, null, "Java" },
-                    { 5L, null, ".NET" },
-                    { 6L, null, "SQL" },
-                    { 7L, null, "Python" },
-                    { 8L, null, "Go" }
+                    { 1L, 0f, "https://upload.wikimedia.org/wikipedia/commons/9/9d/Flag_of_Arkansas.svg", "Arkansas", null },
+                    { 2L, 0f, "https://upload.wikimedia.org/wikipedia/commons/f/f7/Flag_of_Florida.svg", "Florida", null },
+                    { 3L, 0f, "https://upload.wikimedia.org/wikipedia/commons/f/f7/Flag_of_Texas.svg", "Texas", null }
                 });
+
+            migrationBuilder.UpdateData(
+                table: "Users",
+                keyColumn: "Id",
+                keyValue: 1L,
+                column: "Password",
+                value: "$2a$11$qdFjBgtTQrojuwI.TOkd.OfaJH9M3zwxFk/g20y25Swsa/yhlHPPO");
+
+            migrationBuilder.UpdateData(
+                table: "Users",
+                keyColumn: "Id",
+                keyValue: 2L,
+                column: "Password",
+                value: "$2a$11$yjRs6dvNUpl/joh2kETGgeWmFC.XoY5T3ep.0JZ31pNYCwFFx50ha");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Comment_CompanyId",
                 table: "Comment",
-                column: "CompanyId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_CompanyRegistrationRequests_CompanyId",
-                table: "CompanyRegistrationRequests",
                 column: "CompanyId");
 
             migrationBuilder.CreateIndex(
@@ -209,11 +139,6 @@ namespace Agents.Migrations
                 name: "IX_JobPositionPayment_CompanyId1",
                 table: "JobPositionPayment",
                 column: "CompanyId1");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Skills_JobOfferId",
-                table: "Skills",
-                column: "JobOfferId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -222,25 +147,27 @@ namespace Agents.Migrations
                 name: "Comment");
 
             migrationBuilder.DropTable(
-                name: "CompanyRegistrationRequests");
-
-            migrationBuilder.DropTable(
                 name: "Interview");
 
             migrationBuilder.DropTable(
                 name: "JobPositionPayment");
 
             migrationBuilder.DropTable(
-                name: "Skills");
-
-            migrationBuilder.DropTable(
-                name: "Users");
-
-            migrationBuilder.DropTable(
                 name: "Company");
 
-            migrationBuilder.DropTable(
-                name: "JobOffers");
+            migrationBuilder.UpdateData(
+                table: "Users",
+                keyColumn: "Id",
+                keyValue: 1L,
+                column: "Password",
+                value: "$2a$11$m2.lUKjrD3ikglgLh.kNk.Chdvu5YmQDEJwQqYdocFeuaaGLqI6Mi");
+
+            migrationBuilder.UpdateData(
+                table: "Users",
+                keyColumn: "Id",
+                keyValue: 2L,
+                column: "Password",
+                value: "$2a$11$ZFhGje6Q/LTcP4o3XJvyde19EK0PYxFfAwbAuT5gHvgE3McREf946");
         }
     }
 }

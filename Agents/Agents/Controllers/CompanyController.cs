@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Agents.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("[controller]")]
     [ApiController]
     public class CompanyController : ControllerBase
     {
@@ -20,6 +20,20 @@ namespace Agents.Controllers
             _companyService = companyService;
         }
 
+        [AllowAnonymous]
+        [HttpGet]
+        public List<CompanyDTO>  GetAllCompanies()
+        {
+            return _companyService.GetAll();
+        }
+
+        [AllowAnonymous]
+        [HttpGet]
+        [Route("{companyId}")]
+        public CompanyDTO GetCompany(long companyId)
+        {
+            return _companyService.Get(companyId);
+        }
 
         [Authorize(Role.User)]
         [HttpPost]

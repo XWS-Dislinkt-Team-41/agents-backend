@@ -11,8 +11,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Agents.Migrations
 {
     [DbContext(typeof(AgentDbContext))]
-    [Migration("20220703143849_6M")]
-    partial class _6M
+    [Migration("20220709213152_9MCompany")]
+    partial class _9MCompany
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -73,6 +73,9 @@ namespace Agents.Migrations
                     b.Property<float>("Grade")
                         .HasColumnType("real");
 
+                    b.Property<string>("Image")
+                        .HasColumnType("text");
+
                     b.Property<string>("Name")
                         .HasColumnType("text");
 
@@ -82,6 +85,29 @@ namespace Agents.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Company");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1L,
+                            Grade = 0f,
+                            Image = "https://upload.wikimedia.org/wikipedia/commons/9/9d/Flag_of_Arkansas.svg",
+                            Name = "Arkansas"
+                        },
+                        new
+                        {
+                            Id = 2L,
+                            Grade = 0f,
+                            Image = "https://upload.wikimedia.org/wikipedia/commons/f/f7/Flag_of_Florida.svg",
+                            Name = "Florida"
+                        },
+                        new
+                        {
+                            Id = 3L,
+                            Grade = 0f,
+                            Image = "https://upload.wikimedia.org/wikipedia/commons/f/f7/Flag_of_Texas.svg",
+                            Name = "Texas"
+                        });
                 });
 
             modelBuilder.Entity("Agents.Model.CompanyRegistrationRequest", b =>
@@ -91,8 +117,11 @@ namespace Agents.Migrations
                         .HasColumnType("bigint")
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
-                    b.Property<long>("CompanyId")
-                        .HasColumnType("bigint");
+                    b.Property<string>("ActivityDescription")
+                        .HasColumnType("text");
+
+                    b.Property<string>("ContactInformation")
+                        .HasColumnType("text");
 
                     b.Property<int>("Status")
                         .HasColumnType("integer");
@@ -101,8 +130,6 @@ namespace Agents.Migrations
                         .HasColumnType("bigint");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("CompanyId");
 
                     b.ToTable("CompanyRegistrationRequests");
                 });
@@ -149,8 +176,14 @@ namespace Agents.Migrations
                     b.Property<string>("Description")
                         .HasColumnType("text");
 
+                    b.Property<string>("Name")
+                        .HasColumnType("text");
+
                     b.Property<string>("Position")
                         .HasColumnType("text");
+
+                    b.Property<bool>("Published")
+                        .HasColumnType("boolean");
 
                     b.Property<string>("Seniority")
                         .HasColumnType("text");
@@ -265,7 +298,11 @@ namespace Agents.Migrations
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bigint")
+                        .HasAnnotation("Npgsql:IdentitySequenceOptions", "'3', '1', '', '', 'False', '1'")
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<string>("ApiToken")
+                        .HasColumnType("text");
 
                     b.Property<bool>("Confirmed")
                         .HasColumnType("boolean");
@@ -288,6 +325,28 @@ namespace Agents.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Users");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1L,
+                            Confirmed = false,
+                            FirstName = "Aleksa",
+                            LastName = "Papovic",
+                            Password = "$2a$11$qdFjBgtTQrojuwI.TOkd.OfaJH9M3zwxFk/g20y25Swsa/yhlHPPO",
+                            Role = 0,
+                            Username = "pape"
+                        },
+                        new
+                        {
+                            Id = 2L,
+                            Confirmed = false,
+                            FirstName = "Darko",
+                            LastName = "Vrbaski",
+                            Password = "$2a$11$yjRs6dvNUpl/joh2kETGgeWmFC.XoY5T3ep.0JZ31pNYCwFFx50ha",
+                            Role = 2,
+                            Username = "dare"
+                        });
                 });
 
             modelBuilder.Entity("Agents.Model.Comment", b =>
@@ -295,15 +354,6 @@ namespace Agents.Migrations
                     b.HasOne("Agents.Model.Company", null)
                         .WithMany("Comments")
                         .HasForeignKey("CompanyId");
-                });
-
-            modelBuilder.Entity("Agents.Model.CompanyRegistrationRequest", b =>
-                {
-                    b.HasOne("Agents.Model.Company", "Company")
-                        .WithMany()
-                        .HasForeignKey("CompanyId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
                 });
 
             modelBuilder.Entity("Agents.Model.Interview", b =>

@@ -12,6 +12,27 @@ namespace Agents.Service
 
         private ICompanyRepository _companyRepository;
         private IMapper _mapper;
+
+        public CompanyService(
+            ICompanyRepository companyRepository,
+            IMapper mapper
+        )
+        {
+            _companyRepository = companyRepository;
+            _mapper = mapper;
+
+        }
+
+        public List<CompanyDTO> GetAll()
+        {
+            return _mapper.Map<List<Company>,List<CompanyDTO>>( _companyRepository.GetAll());
+        }
+
+        public CompanyDTO Get(long companyId)
+        {
+            return _mapper.Map<Company, CompanyDTO>(_companyRepository.Get(companyId));
+        }
+
         public CompanyDTO AddComment(CommentDTO commentDTO)
         {
             Comment comment = _mapper.Map<Comment>(commentDTO);
